@@ -18,3 +18,5 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
 });
+
+//# sourceMappingURL=App.js.map
