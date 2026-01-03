@@ -92,10 +92,8 @@ export default function LoginScreen({ navigation }: any) {
 
   return (
     <View style={styles.container}>
-      {/* App Title */}
       <Text style={styles.appTitle}>MyApp</Text>
 
-      {/* Login Card */}
       <View style={styles.card}>
         <Text style={styles.title}>Login</Text>
         <Text style={styles.subtitle}>Welcome back 👋</Text>
@@ -131,7 +129,7 @@ export default function LoginScreen({ navigation }: any) {
         <View style={styles.divider} />
 
         <Text style={styles.signupText}>
-          Don’t have an account? <Text style={styles.signupLink}>Sign up</Text>
+          Don' have an account? <Text style={styles.signupLink}>Sign up</Text>
         </Text>
       </View>
     </View>
