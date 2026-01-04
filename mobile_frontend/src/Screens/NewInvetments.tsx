@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import { View, Text, TextInput, Button, StyleSheet } from "react-native";
-import { createInvestment, Investment } from "../Services/api";
+import { createInvestment, Investment, User } from "../Services/api";
 
 export default function NewInvestmentScreen({ navigation, route }: any) {
   // Correct: onAdd is just the function, no destructuring
   const onAdd = route?.params?.onAdd;
+  const user: User | undefined = route?.params?.user;
 
   const [farmer, setFarmer] = useState("");
   const [crop, setCrop] = useState("");
@@ -19,24 +20,9 @@ export default function NewInvestmentScreen({ navigation, route }: any) {
     }
 
     setLoading(true);
-
-    const optimistic: Investment = {
-      id: Date.now(),
-      farmer_name: farmer,
-      crop,
-      amount: Number(amount),
-      created_at: new Date().toISOString(),
-    };
-
-    // Optimistic update (only if onAdd exists)
-    if (onAdd) {
-      onAdd(optimistic);
-    }
-
-    navigation.goBack("Investments");
-
     try {
       const saved = await createInvestment({
+        user_id: user?.id,
         farmer_name: farmer,
         crop,
         amount: Number(amount),
@@ -45,6 +31,8 @@ export default function NewInvestmentScreen({ navigation, route }: any) {
       if (onAdd) {
         onAdd(saved);
       }
+
+      navigation.goBack();
     } catch {
       setError("Failed to save investment.");
     } finally {
@@ -59,7 +47,7 @@ export default function NewInvestmentScreen({ navigation, route }: any) {
         <Text style={{ color: "red", textAlign: "center" }}>
           Warning: onAdd callback not provided
         </Text>
-        <Button title="Go Back" onPress={() => navigation.goBack("")} />
+        <Button title="Go Back" onPress={() => navigation.replace("Investments")} />
       </View>
     );
   }
