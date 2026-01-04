@@ -19,22 +19,6 @@ export default function NewInvestmentScreen({ navigation, route }: any) {
     }
 
     setLoading(true);
-
-    const optimistic: Investment = {
-      id: Date.now(),
-      farmer_name: farmer,
-      crop,
-      amount: Number(amount),
-      created_at: new Date().toISOString(),
-    };
-
-    // Optimistic update (only if onAdd exists)
-    if (onAdd) {
-      onAdd(optimistic);
-    }
-
-    navigation.goBack();
-
     try {
       const saved = await createInvestment({
         farmer_name: farmer,
@@ -45,6 +29,8 @@ export default function NewInvestmentScreen({ navigation, route }: any) {
       if (onAdd) {
         onAdd(saved);
       }
+
+      navigation.goBack();
     } catch {
       setError("Failed to save investment.");
     } finally {

@@ -22,13 +22,13 @@ app.get('/api/investments', async (_req, res) => {
 // POST new investment
 app.post('/api/investments', async (req, res) => {
   const { user_id, farmer_name, crop, amount } = req.body;
-  if (!user_id || !farmer_name || !crop || !amount || Number(amount) <= 0) {
+  if (!farmer_name || !crop || !amount || Number(amount) <= 0) {
     return res.status(400).json({ error: 'Invalid input' });
   }
   try {
     const [result] = await pool.execute(
       'INSERT INTO investments (user_id, farmer_name, crop, amount) VALUES (?, ?, ?, ?)',
-      [user_id, farmer_name, crop, amount]
+      [user_id ?? null, farmer_name, crop, amount]
     );
     // @ts-ignore
     const id = result.insertId;
