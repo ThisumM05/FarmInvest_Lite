@@ -33,7 +33,7 @@ export default function NewInvestmentScreen({ navigation, route }: any) {
       onAdd(optimistic);
     }
 
-    navigation.goBack();
+    navigation.goBack("Investments");
 
     try {
       const saved = await createInvestment({
@@ -59,7 +59,7 @@ export default function NewInvestmentScreen({ navigation, route }: any) {
         <Text style={{ color: "red", textAlign: "center" }}>
           Warning: onAdd callback not provided
         </Text>
-        <Button title="Go Back" onPress={() => navigation.goBack()} />
+        <Button title="Go Back" onPress={() => navigation.goBack("")} />
       </View>
     );
   }
