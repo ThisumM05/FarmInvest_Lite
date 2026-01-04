@@ -6,62 +6,80 @@ import {
   TouchableOpacity,
   StyleSheet,
 } from "react-native";
+import { login, User } from "../Services/api";
 
 export default function LoginScreen({ navigation }: any) {
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState<string | null>(null);
+  const [loading, setLoading] = useState(false);
 
   const styles = StyleSheet.create({
     container: {
       flex: 1,
-      backgroundColor: "#f2f2f2",
+      backgroundColor: "#0f172a", // dark blue background
       justifyContent: "center",
       alignItems: "center",
+      paddingHorizontal: 16,
     },
 
     appTitle: {
       fontSize: 32,
       fontWeight: "bold",
-      marginBottom: 20,
+      marginBottom: 24,
+      color: "#e5e7eb",
     },
 
     card: {
-      width: "90%",
-      backgroundColor: "#fff",
+      width: "100%",
+      maxWidth: 380,
+      backgroundColor: "#020617",
       padding: 24,
-      borderRadius: 12,
-      elevation: 4, 
+      borderRadius: 16,
+      borderWidth: 1,
+      borderColor: "#1e293b",
+      shadowColor: "#000",
+      shadowOpacity: 0.25,
+      shadowRadius: 10,
+      shadowOffset: { width: 0, height: 4 },
+      elevation: 6,
     },
 
     title: {
       fontSize: 24,
       fontWeight: "bold",
       textAlign: "center",
+      color: "#f9fafb",
+      marginBottom: 4,
     },
 
     subtitle: {
       textAlign: "center",
-      color: "#666",
-      marginBottom: 20,
+      color: "#9ca3af",
+      marginBottom: 24,
     },
 
     input: {
       borderWidth: 1,
-      borderColor: "#ccc",
-      borderRadius: 8,
-      padding: 12,
-      marginBottom: 12,
+      borderColor: "#374151",
+      backgroundColor: "#020617",
+      color: "#e5e7eb",
+      borderRadius: 10,
+      paddingHorizontal: 14,
+      paddingVertical: 10,
+      marginBottom: 14,
     },
 
     loginButton: {
-      backgroundColor: "#0066ff",
-      padding: 14,
-      borderRadius: 8,
-      marginTop: 10,
+      backgroundColor: "#22c55e",
+      paddingVertical: 14,
+      borderRadius: 999,
+      marginTop: 12,
+      alignItems: "center",
     },
 
     loginButtonText: {
-      color: "#fff",
+      color: "#020617",
       textAlign: "center",
       fontWeight: "bold",
       fontSize: 16,
@@ -69,30 +87,30 @@ export default function LoginScreen({ navigation }: any) {
 
     forgotText: {
       textAlign: "center",
-      color: "#0066ff",
-      marginTop: 12,
+      color: "#22c55e",
+      marginTop: 16,
     },
 
     divider: {
       height: 1,
-      backgroundColor: "#ddd",
-      marginVertical: 20,
+      backgroundColor: "#1f2937",
+      marginVertical: 24,
     },
 
     signupText: {
       textAlign: "center",
-      color: "#555",
+      color: "#9ca3af",
     },
 
     signupLink: {
-      color: "#0066ff",
+      color: "#22c55e",
       fontWeight: "bold",
     },
   });
 
   return (
     <View style={styles.container}>
-      <Text style={styles.appTitle}>MyApp</Text>
+      <Text style={styles.appTitle}>FarmInvest</Text>
 
       <View style={styles.card}>
         <Text style={styles.title}>Login</Text>
@@ -102,6 +120,7 @@ export default function LoginScreen({ navigation }: any) {
           placeholder="Username"
           value={name}
           onChangeText={setName}
+          autoCapitalize="none"
           style={styles.input}
         />
 
@@ -112,13 +131,34 @@ export default function LoginScreen({ navigation }: any) {
           secureTextEntry
           style={styles.input}
         />
+        {error && (
+          <Text style={{ color: "red", marginBottom: 8, textAlign: "center" }}>
+            {error}
+          </Text>
+        )}
 
-        <TouchableOpacity style={styles.loginButton}>
-          <Text
-            style={styles.loginButtonText}
-            onPress={() => navigation.replace("Investments")}
-          >
-            Continue
+        <TouchableOpacity
+          style={styles.loginButton}
+          onPress={async () => {
+            if (!name || !password) {
+              setError("Please enter username and password.");
+              return;
+            }
+
+            try {
+              setLoading(true);
+              setError(null);
+              const user: User = await login(name, password);
+              navigation.replace("Investments", { user });
+            } catch (e: any) {
+              setError(e?.message || "Login failed. Please try again.");
+            } finally {
+              setLoading(false);
+            }
+          }}
+        >
+          <Text style={styles.loginButtonText}>
+            {loading ? "Signing in..." : "Continue"}
           </Text>
         </TouchableOpacity>
 

@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import { View, Text, TextInput, Button, StyleSheet } from "react-native";
-import { createInvestment, Investment } from "../Services/api";
+import { createInvestment, Investment, User } from "../Services/api";
 
 export default function NewInvestmentScreen({ navigation, route }: any) {
   // Correct: onAdd is just the function, no destructuring
   const onAdd = route?.params?.onAdd;
+  const user: User | undefined = route?.params?.user;
 
   const [farmer, setFarmer] = useState("");
   const [crop, setCrop] = useState("");
@@ -21,6 +22,7 @@ export default function NewInvestmentScreen({ navigation, route }: any) {
     setLoading(true);
     try {
       const saved = await createInvestment({
+        user_id: user?.id,
         farmer_name: farmer,
         crop,
         amount: Number(amount),
