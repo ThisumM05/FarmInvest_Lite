@@ -1,0 +1,68 @@
+{
+  "info": {
+    "name": "FarmInvest Lite API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "GET /api/investments",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/investments",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "investments"]
+        }
+      }
+    },
+    {
+      "name": "POST /api/investments",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"farmer_name\": \"Farmer Carol\",\n  \"crop\": \"Rice\",\n  \"amount\": 2000\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/api/investments",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "investments"]
+        }
+      }
+    },
+    {
+      "name": "POST /api/login",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"username\": \"demo\",\n  \"password\": \"demo-password\"\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/api/login",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "login"]
+        }
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:3000"
+    }
+  ]
+}
