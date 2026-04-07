@@ -1,0 +1,597 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FarmInvest Lite</title>
+    <style>
+      body {
+        font-family:
+          -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f5f5f5;
+      }
+      .container {
+        max-width: 400px;
+        margin: 0 auto;
+        padding: 20px;
+        background: white;
+        min-height: 100vh;
+      }
+      .logo {
+        text-align: center;
+        margin: 20px 0;
+      }
+      .logo h1 {
+        color: #2e7d32;
+        font-size: 28px;
+        margin: 0;
+      }
+      .investment-card {
+        margin: 15px 0;
+        padding: 20px;
+        border-radius: 12px;
+        background: linear-gradient(135deg, #82c341 0%, #2e7d32 100%);
+        color: white;
+      }
+      .investment-value {
+        font-size: 24px;
+        font-weight: bold;
+      }
+      .investment-label {
+        font-size: 16px;
+        opacity: 0.9;
+        margin-top: 5px;
+      }
+      .section-title {
+        font-size: 18px;
+        font-weight: 600;
+        margin: 25px 0 15px 0;
+        color: #333;
+      }
+      .investment-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 15px 0;
+        border-bottom: 1px solid #eee;
+      }
+      .investment-item:last-child {
+        border-bottom: none;
+      }
+      .farmer-info {
+        display: flex;
+        align-items: center;
+      }
+      .farmer-avatar {
+        width: 40px;
+        height: 40px;
+        border-radius: 20px;
+        background: #82c341;
+        margin-right: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-weight: bold;
+      }
+      .farmer-details h4 {
+        margin: 0;
+        font-size: 16px;
+        color: #333;
+      }
+      .farmer-details p {
+        margin: 2px 0 0 0;
+        font-size: 14px;
+        color: #666;
+      }
+      .amount {
+        font-size: 16px;
+        font-weight: 600;
+        color: #333;
+      }
+      .add-button {
+        position: fixed;
+        bottom: 30px;
+        right: 30px;
+        width: 60px;
+        height: 60px;
+        border-radius: 30px;
+        background: #82c341;
+        border: none;
+        color: white;
+        font-size: 24px;
+        cursor: pointer;
+        box-shadow: 0 4px 12px rgba(130, 195, 65, 0.4);
+      }
+      .navigation {
+        position: fixed;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        background: white;
+        border-radius: 25px 25px 0 0;
+        padding: 15px;
+        width: 90%;
+        max-width: 400px;
+        box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+        display: flex;
+        justify-content: space-around;
+      }
+      .nav-item {
+        text-align: center;
+        padding: 8px;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: background-color 0.2s;
+      }
+      .nav-item:hover {
+        background-color: #f0f0f0;
+      }
+      .nav-item.active {
+        background-color: #82c341;
+        color: white;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="logo">
+        <h1>🌾 FarmInvest</h1>
+      </div>
+
+      <div class="investment-card">
+        <div class="investment-value">₹1,45,230</div>
+        <div class="investment-label">Total Investment Portfolio</div>
+      </div>
+
+      <div class="section-title">Recent Investments</div>
+
+      <div class="investment-item">
+        <div class="farmer-info">
+          <div class="farmer-avatar">R</div>
+          <div class="farmer-details">
+            <h4>Ramesh Kumar</h4>
+            <p>Wheat Farming • 2.5 acres</p>
+          </div>
+        </div>
+        <div class="amount">₹25,000</div>
+      </div>
+
+      <div class="investment-item">
+        <div class="farmer-info">
+          <div class="farmer-avatar">S</div>
+          <div class="farmer-details">
+            <h4>Suresh Patel</h4>
+            <p>Rice Farming • 3.2 acres</p>
+          </div>
+        </div>
+        <div class="amount">₹35,000</div>
+      </div>
+
+      <div class="investment-item">
+        <div class="farmer-info">
+          <div class="farmer-avatar">M</div>
+          <div class="farmer-details">
+            <h4>Meera Singh</h4>
+            <p>Vegetable Farms • 1.8 acres</p>
+          </div>
+        </div>
+        <div class="amount">₹20,000</div>
+      </div>
+
+      <div class="investment-item">
+        <div class="farmer-info">
+          <div class="farmer-avatar">A</div>
+          <div class="farmer-details">
+            <h4>Arjun Verma</h4>
+            <p>Cotton Farming • 4.0 acres</p>
+          </div>
+        </div>
+        <div class="amount">₹45,000</div>
+      </div>
+
+      <div class="investment-item">
+        <div class="farmer-info">
+          <div class="farmer-avatar">P</div>
+          <div class="farmer-details">
+            <h4>Priya Sharma</h4>
+            <p>Organic Fruits • 2.1 acres</p>
+          </div>
+        </div>
+        <div class="amount">₹20,230</div>
+      </div>
+
+      <button class="add-button" onclick="showNewInvestment()">+</button>
+    </div>
+
+    <div class="navigation">
+      <div class="nav-item active" onclick="showInvestments()">
+        <div>📊</div>
+        <div style="font-size: 12px; margin-top: 4px">Investments</div>
+      </div>
+      <div class="nav-item" onclick="showFarmers()">
+        <div>👨‍🌾</div>
+        <div style="font-size: 12px; margin-top: 4px">Farmers</div>
+      </div>
+      <div class="nav-item" onclick="showYieldPrediction()">
+        <div>📈</div>
+        <div style="font-size: 12px; margin-top: 4px">Yield</div>
+      </div>
+      <div class="nav-item" onclick="showRiskScoring()">
+        <div>⚠️</div>
+        <div style="font-size: 12px; margin-top: 4px">Risk</div>
+      </div>
+    </div>
+
+    <script>
+      let currentPage = "investments";
+
+      function showInvestments() {
+        setActivePage("investments");
+        document.querySelector(".container").innerHTML = `
+                <div class="logo">
+                    <h1>🌾 FarmInvest</h1>
+                </div>
+
+                <div class="investment-card">
+                    <div class="investment-value">₹1,45,230</div>
+                    <div class="investment-label">Total Investment Portfolio</div>
+                </div>
+
+                <div class="section-title">Recent Investments</div>
+
+                <div class="investment-item">
+                    <div class="farmer-info">
+                        <div class="farmer-avatar">R</div>
+                        <div class="farmer-details">
+                            <h4>Ramesh Kumar</h4>
+                            <p>Wheat Farming • 2.5 acres</p>
+                        </div>
+                    </div>
+                    <div class="amount">₹25,000</div>
+                </div>
+
+                <div class="investment-item">
+                    <div class="farmer-info">
+                        <div class="farmer-avatar">S</div>
+                        <div class="farmer-details">
+                            <h4>Suresh Patel</h4>
+                            <p>Rice Farming • 3.2 acres</p>
+                        </div>
+                    </div>
+                    <div class="amount">₹35,000</div>
+                </div>
+
+                <div class="investment-item">
+                    <div class="farmer-info">
+                        <div class="farmer-avatar">M</div>
+                        <div class="farmer-details">
+                            <h4>Meera Singh</h4>
+                            <p>Vegetable Farms • 1.8 acres</p>
+                        </div>
+                    </div>
+                    <div class="amount">₹20,000</div>
+                </div>
+
+                <div class="investment-item">
+                    <div class="farmer-info">
+                        <div class="farmer-avatar">A</div>
+                        <div class="farmer-details">
+                            <h4>Arjun Verma</h4>
+                            <p>Cotton Farming • 4.0 acres</p>
+                        </div>
+                    </div>
+                    <div class="amount">₹45,000</div>
+                </div>
+
+                <div class="investment-item">
+                    <div class="farmer-info">
+                        <div class="farmer-avatar">P</div>
+                        <div class="farmer-details">
+                            <h4>Priya Sharma</h4>
+                            <p>Organic Fruits • 2.1 acres</p>
+                        </div>
+                    </div>
+                    <div class="amount">₹20,230</div>
+                </div>
+
+                <button class="add-button" onclick="showNewInvestment()">+</button>
+            `;
+      }
+
+      function showNewInvestment() {
+        setActivePage("new-investment");
+        document.querySelector(".container").innerHTML = `
+                <div class="logo">
+                    <h1>🌾 FarmInvest</h1>
+                </div>
+
+                <div class="section-title">New Investment</div>
+
+                <div style="margin: 20px 0;">
+                    <label style="display: block; margin-bottom: 8px; font-weight: 600; color: #333;">Select Farmer</label>
+                    <select style="width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 8px; font-size: 16px;">
+                        <option>Choose a farmer...</option>
+                        <option>Ramesh Kumar - Wheat Farming</option>
+                        <option>Suresh Patel - Rice Farming</option>
+                        <option>Meera Singh - Vegetable Farms</option>
+                        <option>Arjun Verma - Cotton Farming</option>
+                        <option>Priya Sharma - Organic Fruits</option>
+                    </select>
+                </div>
+
+                <div style="margin: 20px 0;">
+                    <label style="display: block; margin-bottom: 8px; font-weight: 600; color: #333;">Investment Amount (₹)</label>
+                    <input type="number" placeholder="Enter amount" style="width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 8px; font-size: 16px; box-sizing: border-box;">
+                </div>
+
+                <div style="margin: 20px 0;">
+                    <label style="display: block; margin-bottom: 8px; font-weight: 600; color: #333;">Investment Duration</label>
+                    <select style="width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 8px; font-size: 16px;">
+                        <option>Select duration...</option>
+                        <option>3 months</option>
+                        <option>6 months</option>
+                        <option>12 months</option>
+                        <option>24 months</option>
+                    </select>
+                </div>
+
+                <div style="margin: 20px 0;">
+                    <label style="display: block; margin-bottom: 8px; font-weight: 600; color: #333;">Expected Returns (%)</label>
+                    <input type="number" placeholder="Expected return percentage" style="width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 8px; font-size: 16px; box-sizing: border-box;">
+                </div>
+
+                <button onclick="showInvestments()" style="width: 100%; padding: 15px; background: #82C341; color: white; border: none; border-radius: 8px; font-size: 16px; font-weight: 600; margin-top: 30px; cursor: pointer;">
+                    Create Investment
+                </button>
+            `;
+      }
+
+      function showFarmers() {
+        setActivePage("farmers");
+        document.querySelector(".container").innerHTML = `
+                <div class="logo">
+                    <h1>🌾 FarmInvest</h1>
+                </div>
+
+                <div class="section-title">Manage Farmers</div>
+
+                <div class="investment-item">
+                    <div class="farmer-info">
+                        <div class="farmer-avatar">R</div>
+                        <div class="farmer-details">
+                            <h4>Ramesh Kumar</h4>
+                            <p>Wheat Farming • 2.5 acres • Rajasthan</p>
+                        </div>
+                    </div>
+                    <div style="color: #82C341; font-weight: 600;">Active</div>
+                </div>
+
+                <div class="investment-item">
+                    <div class="farmer-info">
+                        <div class="farmer-avatar">S</div>
+                        <div class="farmer-details">
+                            <h4>Suresh Patel</h4>
+                            <p>Rice Farming • 3.2 acres • Punjab</p>
+                        </div>
+                    </div>
+                    <div style="color: #82C341; font-weight: 600;">Active</div>
+                </div>
+
+                <div class="investment-item">
+                    <div class="farmer-info">
+                        <div class="farmer-avatar">M</div>
+                        <div class="farmer-details">
+                            <h4>Meera Singh</h4>
+                            <p>Vegetable Farms • 1.8 acres • Maharashtra</p>
+                        </div>
+                    </div>
+                    <div style="color: #82C341; font-weight: 600;">Active</div>
+                </div>
+
+                <div class="investment-item">
+                    <div class="farmer-info">
+                        <div class="farmer-avatar">A</div>
+                        <div class="farmer-details">
+                            <h4>Arjun Verma</h4>
+                            <p>Cotton Farming • 4.0 acres • Gujarat</p>
+                        </div>
+                    </div>
+                    <div style="color: #82C341; font-weight: 600;">Active</div>
+                </div>
+
+                <div class="investment-item">
+                    <div class="farmer-info">
+                        <div class="farmer-avatar">P</div>
+                        <div class="farmer-details">
+                            <h4>Priya Sharma</h4>
+                            <p>Organic Fruits • 2.1 acres • Kerala</p>
+                        </div>
+                    </div>
+                    <div style="color: #82C341; font-weight: 600;">Active</div>
+                </div>
+
+                <button class="add-button" onclick="alert('Add new farmer functionality')">+</button>
+            `;
+      }
+
+      function showYieldPrediction() {
+        setActivePage("yield");
+        document.querySelector(".container").innerHTML = `
+                <div class="logo">
+                    <h1>🌾 FarmInvest</h1>
+                </div>
+
+                <div class="section-title">Yield Prediction</div>
+
+                <div style="margin: 20px 0;">
+                    <label style="display: block; margin-bottom: 8px; font-weight: 600; color: #333;">Select Farmer</label>
+                    <select style="width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 8px; font-size: 16px;">
+                        <option>Ramesh Kumar - Wheat Farming</option>
+                        <option>Suresh Patel - Rice Farming</option>
+                        <option>Meera Singh - Vegetable Farms</option>
+                    </select>
+                </div>
+
+                <div style="margin: 20px 0;">
+                    <label style="display: block; margin-bottom: 8px; font-weight: 600; color: #333;">Crop Type</label>
+                    <select style="width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 8px; font-size: 16px;">
+                        <option>Wheat</option>
+                        <option>Rice</option>
+                        <option>Cotton</option>
+                        <option>Vegetables</option>
+                    </select>
+                </div>
+
+                <div style="background: #f8f9fa; padding: 20px; border-radius: 12px; margin: 20px 0;">
+                    <h3 style="margin: 0 0 15px 0; color: #333;">AI Yield Prediction</h3>
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin: 10px 0;">
+                        <span>Predicted Yield:</span>
+                        <span style="font-weight: 600; color: #82C341;">4.2 tons/hectare</span>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin: 10px 0;">
+                        <span>Confidence Level:</span>
+                        <span style="font-weight: 600; color: #82C341;">87%</span>
+                    </div>
+                    <div style="margin: 15px 0 0 0;">
+                        <div style="background: #e9ecef; height: 8px; border-radius: 4px;">
+                            <div style="background: #82C341; height: 8px; width: 87%; border-radius: 4px;"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="background: #fff3cd; border: 1px solid #ffeaa7; padding: 15px; border-radius: 8px; margin: 20px 0;">
+                    <h4 style="margin: 0 0 10px 0; color: #856404;">Recommendations</h4>
+                    <ul style="margin: 0; padding-left: 20px; color: #856404;">
+                        <li>Increase fertilizer by 10%</li>
+                        <li>Monitor soil moisture levels</li>
+                        <li>Consider pest control measures</li>
+                    </ul>
+                </div>
+            `;
+      }
+
+      function showRiskScoring() {
+        setActivePage("risk");
+        document.querySelector(".container").innerHTML = `
+                <div class="logo">
+                    <h1>🌾 FarmInvest</h1>
+                </div>
+
+                <div class="section-title">Risk Assessment</div>
+
+                <div style="margin: 20px 0;">
+                    <label style="display: block; margin-bottom: 8px; font-weight: 600; color: #333;">Select Investment</label>
+                    <select style="width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 8px; font-size: 16px;">
+                        <option>Ramesh Kumar - ₹25,000</option>
+                        <option>Suresh Patel - ₹35,000</option>
+                        <option>Meera Singh - ₹20,000</option>
+                    </select>
+                </div>
+
+                <div style="text-align: center; margin: 30px 0;">
+                    <div style="display: inline-block; position: relative; width: 120px; height: 120px;">
+                        <svg width="120" height="120" style="transform: rotate(-90deg);">
+                            <circle cx="60" cy="60" r="50" fill="none" stroke="#e9ecef" stroke-width="10"/>
+                            <circle cx="60" cy="60" r="50" fill="none" stroke="#82C341" stroke-width="10" 
+                                    stroke-dasharray="251.2" stroke-dashoffset="75.36" stroke-linecap="round"/>
+                        </svg>
+                        <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 24px; font-weight: bold; color: #82C341;">
+                            7.2
+                        </div>
+                    </div>
+                    <div style="margin-top: 10px; font-size: 18px; font-weight: 600; color: #333;">
+                        Low Risk Investment
+                    </div>
+                </div>
+
+                <div style="margin: 20px 0;">
+                    <h4 style="margin: 0 0 15px 0; color: #333;">Risk Factors</h4>
+                    
+                    <div style="margin: 10px 0;">
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
+                            <span>Weather Conditions</span>
+                            <span style="color: #82C341; font-weight: 600;">8.5/10</span>
+                        </div>
+                        <div style="background: #e9ecef; height: 6px; border-radius: 3px;">
+                            <div style="background: #82C341; height: 6px; width: 85%; border-radius: 3px;"></div>
+                        </div>
+                    </div>
+
+                    <div style="margin: 10px 0;">
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
+                            <span>Market Stability</span>
+                            <span style="color: #82C341; font-weight: 600;">7.2/10</span>
+                        </div>
+                        <div style="background: #e9ecef; height: 6px; border-radius: 3px;">
+                            <div style="background: #82C341; height: 6px; width: 72%; border-radius: 3px;"></div>
+                        </div>
+                    </div>
+
+                    <div style="margin: 10px 0;">
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
+                            <span>Farmer Experience</span>
+                            <span style="color: #82C341; font-weight: 600;">9.1/10</span>
+                        </div>
+                        <div style="background: #e9ecef; height: 6px; border-radius: 3px;">
+                            <div style="background: #82C341; height: 6px; width: 91%; border-radius: 3px;"></div>
+                        </div>
+                    </div>
+
+                    <div style="margin: 10px 0;">
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
+                            <span>Crop Diversification</span>
+                            <span style="color: #f39c12; font-weight: 600;">6.8/10</span>
+                        </div>
+                        <div style="background: #e9ecef; height: 6px; border-radius: 3px;">
+                            <div style="background: #f39c12; height: 6px; width: 68%; border-radius: 3px;"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="background: #d4edda; border: 1px solid #c3e6cb; padding: 15px; border-radius: 8px; margin: 20px 0;">
+                    <h4 style="margin: 0 0 10px 0; color: #155724;">Investment Recommendation</h4>
+                    <p style="margin: 0; color: #155724;">
+                        This investment shows low risk with stable returns expected. 
+                        Recommended investment amount: ₹15,000 - ₹30,000
+                    </p>
+                </div>
+            `;
+      }
+
+      function setActivePage(page) {
+        currentPage = page;
+        const navItems = document.querySelectorAll(".nav-item");
+        navItems.forEach((item) => item.classList.remove("active"));
+
+        switch (page) {
+          case "investments":
+          case "new-investment":
+            navItems[0].classList.add("active");
+            break;
+          case "farmers":
+            navItems[1].classList.add("active");
+            break;
+          case "yield":
+            navItems[2].classList.add("active");
+            break;
+          case "risk":
+            navItems[3].classList.add("active");
+            break;
+        }
+      }
+
+      // Test backend connection
+      fetch("http://localhost:3000/api/test")
+        .then((response) => response.json())
+        .then((data) => {
+          console.log("Backend connected:", data);
+        })
+        .catch((error) => {
+          console.log("Backend connection failed:", error);
+        });
+    </script>
+  </body>
+</html>

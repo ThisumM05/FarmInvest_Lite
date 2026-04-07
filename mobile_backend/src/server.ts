@@ -1,7 +1,7 @@
 import 'dotenv/config';
 import express from 'express';
 import cors from 'cors';
-import { pool } from './db';
+import { pool, initializeDatabase } from './db';
 
 const app = express();
 app.use(cors());
@@ -18,9 +18,32 @@ app.get('/api/health/db', async (_req, res) => {
   }
 });
 
+// Test endpoint - no authentication required  
+app.get('/api/test', (_req, res) => {
+  res.json({ 
+    message: 'FarmInvest API is working!', 
+    timestamp: new Date().toISOString(),
+    version: '1.0.0'
+  });
+});
+
+// Get all users (for testing)
+app.get('/api/users', async (_req, res) => {
+  try {
+    const [rows] = await pool.query('SELECT id, username, email FROM users ORDER BY created_at DESC');
+    res.json(rows);
+  } catch (err) {
+    console.error('Users fetch error:', err);
+    res.status(500).json({ error: 'Server error' });
+  }
+});
+
 // Basic login API (expects a `users` table with password_hash column)
 app.post('/api/login', async (req, res) => {
   const { username, password } = req.body;
+  
+  console.log('Login attempt:', { username, password: password ? '[PROVIDED]' : '[MISSING]' });
+  
   if (!username || !password) {
     return res.status(400).json({ error: 'Username and password are required' });
   }
@@ -31,13 +54,25 @@ app.post('/api/login', async (req, res) => {
       [username, password]
     );
 
+    console.log('Query result:', rows);
+
     // @ts-ignore
     if (!rows.length) {
-      return res.status(401).json({ error: 'Invalid credentials' });
+      // Check if user exists but password is wrong
+      const [userExists] = await pool.query('SELECT id FROM users WHERE username = ? LIMIT 1', [username]);
+      // @ts-ignore
+      if (userExists.length > 0) {
+        console.log('User exists but password incorrect');
+        return res.status(401).json({ error: 'Invalid password' });
+      } else {
+        console.log('User does not exist');
+        return res.status(401).json({ error: 'User not found' });
+      }
     }
 
     // @ts-ignore
     const user = rows[0];
+    console.log('Login successful for user:', user);
     res.json({ user });
   } catch (err) {
     console.error('Login error:', err);
@@ -79,16 +114,14 @@ app.post('/api/investments', async (req, res) => {
 });
 
 const port = process.env.PORT || 3000;
-app.listen(port, () => {
+app.listen(port, async () => {
   console.log(`Backend running at http://localhost:${port}`);
 
-  // On startup, check DB connectivity and log the result
-  (async () => {
-    try {
-      await pool.query('SELECT 1');
-      console.log('Database connection: OK');
-    } catch (err) {
-      console.error('Database connection: FAILED', err);
-    }
-  })();
+  // Initialize MariaDB database
+  const dbConnected = await initializeDatabase();
+  if (dbConnected) {
+    console.log('Database connection: OK');
+  } else {
+    console.error('Database connection: FAILED');
+  }
 });
