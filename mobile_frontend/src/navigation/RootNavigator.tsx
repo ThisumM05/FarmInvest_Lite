@@ -4,6 +4,8 @@ import LoginScreen from "../Screens/Login";
 import InvestmentScreen from "../Screens/Investments";
 import NewInvestmentScreen from "../Screens/NewInvetments";
 import FarmersScreen from "../Screens/Farmers";
+import YieldPredictionScreen from "../Screens/YieldPrediction";
+import RiskScoringScreen from "../Screens/RiskScoring";
 import { RootStackParamList, SCREEN_NAMES, ROUTES } from "../types/navigation";
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -17,6 +19,8 @@ const linking = {
       Investments: ROUTES.INVESTMENTS,
       NewInvestments: ROUTES.NEW_INVESTMENTS,
       Farmers: ROUTES.FARMERS,
+      YieldPrediction: ROUTES.YIELD_PREDICTION,
+      RiskScoring: ROUTES.RISK_SCORING,
     },
   },
 };
@@ -32,6 +36,8 @@ export default function RootNavigator() {
         <Stack.Screen name={SCREEN_NAMES.INVESTMENTS} component={InvestmentScreen} />
         <Stack.Screen name={SCREEN_NAMES.NEW_INVESTMENTS} component={NewInvestmentScreen} />
         <Stack.Screen name={SCREEN_NAMES.FARMERS} component={FarmersScreen} />
+        <Stack.Screen name={SCREEN_NAMES.YIELD_PREDICTION} component={YieldPredictionScreen} />
+        <Stack.Screen name={SCREEN_NAMES.RISK_SCORING} component={RiskScoringScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );

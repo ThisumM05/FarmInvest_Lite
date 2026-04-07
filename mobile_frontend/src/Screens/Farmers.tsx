@@ -505,7 +505,7 @@ export default function FarmersScreen({ navigation, route }: any) {
           <FlatList
             data={filteredFarmers}
             renderItem={renderFarmerItem}
-            keyExtractor={(item) => String(item.id)}
+            keyExtractor={(item: Farmer) => String(item.id)}
             showsVerticalScrollIndicator={false}
             ListEmptyComponent={
               <View style={styles.emptyState}>

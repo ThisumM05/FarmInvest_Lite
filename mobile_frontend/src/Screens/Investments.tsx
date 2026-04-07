@@ -339,7 +339,7 @@ export default function InvestmentScreen({ navigation, route }: any) {
         <View style={styles.investmentsList}>
           <FlatList
             data={data}
-            keyExtractor={(item) => String(item.id)}
+            keyExtractor={(item: Investment) => String(item.id)}
             showsVerticalScrollIndicator={false}
             ListHeaderComponent={
               <View style={styles.tableHeader}>
@@ -349,7 +349,7 @@ export default function InvestmentScreen({ navigation, route }: any) {
                 <Text style={[styles.tableHeaderText, { flex: 0.8, textAlign: 'right' }]}>Date</Text>
               </View>
             }
-            renderItem={({ item }) => {
+            renderItem={({ item }: { item: Investment }) => {
               const avatar = getAvatarUrl(item.farmer_name);
               return (
                 <View style={styles.investmentRow}>

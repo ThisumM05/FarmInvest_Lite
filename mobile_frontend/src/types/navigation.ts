@@ -23,6 +23,8 @@ export type RootStackParamList = {
     user: User;
   };
   Farmers: undefined;
+  YieldPrediction: undefined;
+  RiskScoring: undefined;
 };
 
 // Screen names - must match RootStackParamList keys exactly
@@ -31,6 +33,8 @@ export const SCREEN_NAMES = {
   INVESTMENTS: 'Investments',
   NEW_INVESTMENTS: 'NewInvestments',
   FARMERS: 'Farmers',
+  YIELD_PREDICTION: 'YieldPrediction',
+  RISK_SCORING: 'RiskScoring',
 } as const;
 
 // Route paths
@@ -39,4 +43,6 @@ export const ROUTES = {
   INVESTMENTS: '/investments',
   NEW_INVESTMENTS: '/investments/new',
   FARMERS: '/farmers',
+  YIELD_PREDICTION: '/yield-prediction',
+  RISK_SCORING: '/risk-scoring',
 } as const;
